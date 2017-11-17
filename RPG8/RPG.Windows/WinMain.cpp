@@ -2,22 +2,10 @@
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
 {	
-	//Register the main window class
-	if (!RegisterWindowClass(instance))
+	if (!InitializeMainWindow(instance, mainWindowHandle))
 	{
 		return false;
 	}
-
-	//Create a window
-	mainWindowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
-	if (mainWindowHandle == NULL)
-	{
-		return false;
-	}
-
-	//Show the main window
-	ShowWindow(mainWindowHandle, SW_SHOWNORMAL);
-	UpdateWindow(mainWindowHandle);
 
 	//Message pump
 	MSG message;
@@ -45,19 +33,26 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	return 0;
 }
 
-LRESULT CALLBACK WindowProcedure(HWND windowHandle, UINT message, WPARAM wParameter, LPARAM lParameter)
+bool InitializeMainWindow(HINSTANCE instance, HWND windowHandle)
 {
-	switch (message)
+	//Register the main window class
+	if (!RegisterWindowClass(instance))
 	{
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-
-		default:
-			return DefWindowProc(windowHandle, message, wParameter, lParameter);
+		return false;
 	}
 
-	return 0;
+	//Create a window
+	windowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
+	if (windowHandle == NULL)
+	{
+		return false;
+	}
+
+	//Show the main window
+	ShowWindow(windowHandle, SW_SHOWNORMAL);
+	UpdateWindow(windowHandle);
+
+	return true;
 }
 
 bool RegisterWindowClass(HINSTANCE instance)
@@ -84,4 +79,19 @@ bool RegisterWindowClass(HINSTANCE instance)
 	}
 
 	return true;
+}
+
+LRESULT CALLBACK WindowProcedure(HWND windowHandle, UINT message, WPARAM wParameter, LPARAM lParameter)
+{
+	switch (message)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+
+	default:
+		return DefWindowProc(windowHandle, message, wParameter, lParameter);
+	}
+
+	return 0;
 }

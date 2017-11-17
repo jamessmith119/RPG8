@@ -8,3 +8,4 @@ Game game;
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 bool RegisterWindowClass(HINSTANCE);
+bool InitializeMainWindow(HINSTANCE, HWND);
