@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RPG.Windows", "RPG.Windows\RPG.Windows.vcxproj", "{49CBF7FC-69B1-42A4-8318-14DAFD962E5A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DFBBD925-D087-49BF-A9ED-95A7378494BF} = {DFBBD925-D087-49BF-A9ED-95A7378494BF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RPG.Game", "RPG.Game\RPG.Game.vcxproj", "{DFBBD925-D087-49BF-A9ED-95A7378494BF}"
 EndProject

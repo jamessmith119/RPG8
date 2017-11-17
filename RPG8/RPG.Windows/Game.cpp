@@ -1,12 +1,25 @@
 #include "Game.h"
+#include<d3d9.h>
+
+LPDIRECT3D9 d3d;
 
 int Game::Initialize()
 {
+	if (NULL == (d3d = Direct3DCreate9(D3D_SDK_VERSION)))
+	{
+		return E_FAIL;
+	}
+
 	return 0;
 }
 
 void Game::ShutDown()
 {
+	if (d3d)
+	{
+		d3d->Release();
+		d3d = NULL;
+	}
 }
 
 //TODO: Remove test code
