@@ -4,31 +4,18 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 {	
 	if (!InitializeMainWindow(instance, mainWindowHandle))
 	{
-		return false;
+		MessageBox(NULL, L"Unable to create game window.", L"Fatal Error", MB_ICONERROR);
+		return E_FAIL;
 	}
 
-	//Message pump
-	MSG message;
-	ZeroMemory(&message, sizeof(MSG));
-
-	game.Initialize();
-
-	while (message.message != WM_QUIT)
+	if (!game.Initialize())
 	{
-		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&message);
-			DispatchMessage(&message);
-		}
-		else
-		{
-			//TODO
-		}
+		MessageBox(NULL, L"Unable to initialize game.", L"Fatal Error", MB_ICONERROR);
+		return E_FAIL;
 	}
 
-	game.Shutdown();
-
-	UnregisterClass(L"GameClass", instance);
+	RunMessagePump();
+	Shutdown(instance);
 
 	return 0;
 }
@@ -79,6 +66,31 @@ bool RegisterWindowClass(HINSTANCE instance)
 	}
 
 	return true;
+}
+
+void RunMessagePump()
+{
+	//Message pump
+	MSG message;
+	ZeroMemory(&message, sizeof(MSG));
+	while (message.message != WM_QUIT)
+	{
+		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&message);
+			DispatchMessage(&message);
+		}
+		else
+		{
+			//TODO
+		}
+	}
+}
+
+void Shutdown(HINSTANCE instance)
+{
+	game.Shutdown();
+	UnregisterClass(L"GameClass", instance);
 }
 
 LRESULT CALLBACK WindowProcedure(HWND windowHandle, UINT message, WPARAM wParameter, LPARAM lParameter)

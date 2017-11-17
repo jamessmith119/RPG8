@@ -8,6 +8,6 @@ class Game
 		GraphicsEngine graphicsEngine;
 
 	public:
-		int Initialize();
+		bool Initialize();
 		void Shutdown();
 };

@@ -6,6 +6,8 @@
 HWND mainWindowHandle;
 Game game;
 
-LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-bool RegisterWindowClass(HINSTANCE);
 bool InitializeMainWindow(HINSTANCE, HWND);
+bool RegisterWindowClass(HINSTANCE);
+void RunMessagePump();
+void Shutdown(HINSTANCE);
+LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);

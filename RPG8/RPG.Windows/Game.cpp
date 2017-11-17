@@ -1,13 +1,13 @@
 #include "Game.h"
 
-int Game::Initialize()
+bool Game::Initialize()
 {
 	if (!graphicsEngine.Initialize())
 	{
-		return E_FAIL;
+		return false;
 	}
 
-	return 0;
+	return true;
 }
 
 void Game::Shutdown()
