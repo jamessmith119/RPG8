@@ -5,7 +5,7 @@
 class GraphicsEngine
 {
 	private:
-		LPDIRECT3D9 direct3D;
+		IDirect3D9 * direct3D = NULL;
 
 	public:
 		bool Initialize();
