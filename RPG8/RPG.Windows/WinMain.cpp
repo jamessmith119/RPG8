@@ -1,4 +1,5 @@
 #include<Windows.h>
+#include"Game.h"
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 bool RegisterWindowClass(HINSTANCE);
@@ -27,6 +28,9 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, i
 	MSG message;
 	ZeroMemory(&message, sizeof(MSG));
 
+	Game game;
+	game.Initialize();
+
 	while (message.message != WM_QUIT)
 	{
 		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
@@ -39,6 +43,8 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, i
 			//TODO
 		}
 	}
+
+	game.ShutDown();
 
 	UnregisterClass(L"GameClass", instance);
 
