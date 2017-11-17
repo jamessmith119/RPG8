@@ -1,6 +1,6 @@
 #include "WinMain.h"
 
-int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
 {	
 	//Register the main window class
 	if (!RegisterWindowClass(instance))
@@ -9,16 +9,15 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, i
 	}
 
 	//Create a window
-	HWND windowHandle;
-	windowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
-	if (windowHandle == NULL)
+	mainWindowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
+	if (mainWindowHandle == NULL)
 	{
 		return false;
 	}
 
 	//Show the main window
-	ShowWindow(windowHandle, SW_SHOWNORMAL);
-	UpdateWindow(windowHandle);
+	ShowWindow(mainWindowHandle, SW_SHOWNORMAL);
+	UpdateWindow(mainWindowHandle);
 
 	//Message pump
 	MSG message;
