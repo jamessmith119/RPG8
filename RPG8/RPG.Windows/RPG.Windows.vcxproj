@@ -148,6 +148,9 @@
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WinMain.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

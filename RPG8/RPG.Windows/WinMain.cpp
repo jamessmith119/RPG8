@@ -1,8 +1,4 @@
-#include<Windows.h>
-#include"Game.h"
-
-LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-bool RegisterWindowClass(HINSTANCE);
+#include "WinMain.h"
 
 int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
 {	
@@ -28,7 +24,6 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, i
 	MSG message;
 	ZeroMemory(&message, sizeof(MSG));
 
-	Game game;
 	game.Initialize();
 
 	while (message.message != WM_QUIT)
