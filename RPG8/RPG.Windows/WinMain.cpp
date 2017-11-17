@@ -1,7 +1,6 @@
 #include<Windows.h>
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-
 bool RegisterWindowClass(HINSTANCE);
 
 int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
