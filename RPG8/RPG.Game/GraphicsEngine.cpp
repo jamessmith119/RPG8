@@ -1,13 +1,16 @@
 #include "GraphicsEngine.h"
 
-int GraphicsEngine::Initialize()
+bool GraphicsEngine::Initialize()
 {
-	if (NULL == (direct3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	bool initialized = false;
+	
+	direct3D = Direct3DCreate9(D3D_SDK_VERSION);
+	if (direct3D)
 	{
-		return E_FAIL;
+		initialized = true;
 	}
 
-	return 0;
+	return initialized;
 }
 
 void GraphicsEngine::Shutdown()

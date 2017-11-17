@@ -2,12 +2,17 @@
 
 int Game::Initialize()
 {
+	if (!graphicsEngine.Initialize())
+	{
+		return E_FAIL;
+	}
+
 	return 0;
 }
 
 void Game::Shutdown()
 {
-
+	graphicsEngine.Shutdown();
 }
 
 //TODO: Remove test code

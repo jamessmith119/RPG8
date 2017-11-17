@@ -8,6 +8,6 @@ class GraphicsEngine
 		LPDIRECT3D9 direct3D;
 
 	public:
-		int Initialize();
+		bool Initialize();
 		void Shutdown();
 };
