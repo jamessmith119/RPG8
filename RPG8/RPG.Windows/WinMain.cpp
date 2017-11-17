@@ -44,7 +44,7 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, i
 		}
 	}
 
-	game.ShutDown();
+	game.Shutdown();
 
 	UnregisterClass(L"GameClass", instance);
 
