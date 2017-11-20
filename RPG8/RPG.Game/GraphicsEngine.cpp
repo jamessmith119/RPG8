@@ -10,6 +10,11 @@ bool GraphicsEngine::Initialize()
 		initialized = true;
 	}
 
+	if (FAILED(direct3D->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_R5G6B5, D3DFMT_R5G6B5, FALSE)))
+	{
+		return E_FAIL;
+	}
+
 	return initialized;
 }
 
