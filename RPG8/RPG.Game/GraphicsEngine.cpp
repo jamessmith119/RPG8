@@ -10,10 +10,25 @@ bool GraphicsEngine::Initialize()
 		initialized = true;
 	}
 
-	if (FAILED(direct3D->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_R5G6B5, D3DFMT_R5G6B5, FALSE)))
+	D3DDISPLAYMODE displayMode = {};
+	if (FAILED(direct3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &displayMode)))
 	{
 		return E_FAIL;
 	}
+
+	if (FAILED(direct3D->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, displayMode.Format, displayMode.Format, FALSE)))
+	{
+		return E_FAIL;
+	}
+
+	D3DPRESENT_PARAMETERS displayParameters = {};
+	displayParameters.BackBufferFormat = displayMode.Format;
+	displayParameters.BackBufferHeight = displayMode.Height;
+	displayParameters.BackBufferWidth = displayMode.Width;
+	displayParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	displayParameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+	displayParameters.SwapEffect = D3DSWAPEFFECT_FLIP;
+	displayParameters.Windowed = FALSE;
 
 	return initialized;
 }
