@@ -3,24 +3,41 @@
 bool GraphicsEngine::Initialize()
 {
 	bool initialized = false;
-	
+
 	direct3D = Direct3DCreate9(D3D_SDK_VERSION);
 	if (direct3D)
 	{
+		if (FAILED(CheckDisplayMode()))
+		{
+			//TODO: Exception
+			return false;
+		}
+
+		D3DPRESENT_PARAMETERS displayParameters = InitializeDisplayParameters();
+		if (FAILED(direct3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, NULL, 
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &displayParameters, &device)))
+		{
+			//TODO: Exception
+			return false;
+		}
+
 		initialized = true;
-	}
+	}	
 
-	D3DDISPLAYMODE displayMode = {};
-	if (FAILED(direct3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &displayMode)))
-	{
-		return E_FAIL;
-	}
+	return initialized;
+}
 
-	if (FAILED(direct3D->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, displayMode.Format, displayMode.Format, FALSE)))
-	{
-		return E_FAIL;
-	}
+HRESULT GraphicsEngine::CheckDisplayMode()
+{
+	HRESULT result = E_FAIL;
+	result = direct3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &displayMode);
+	result = direct3D->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, displayMode.Format, displayMode.Format, FALSE);
 
+	return result;
+}
+
+D3DPRESENT_PARAMETERS GraphicsEngine::InitializeDisplayParameters()
+{
 	D3DPRESENT_PARAMETERS displayParameters = {};
 	displayParameters.BackBufferFormat = displayMode.Format;
 	displayParameters.BackBufferHeight = displayMode.Height;
@@ -30,7 +47,7 @@ bool GraphicsEngine::Initialize()
 	displayParameters.SwapEffect = D3DSWAPEFFECT_FLIP;
 	displayParameters.Windowed = FALSE;
 
-	return initialized;
+	return displayParameters;
 }
 
 void GraphicsEngine::Shutdown()
