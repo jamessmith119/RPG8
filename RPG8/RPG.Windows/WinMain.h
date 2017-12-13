@@ -6,7 +6,7 @@
 HWND mainWindowHandle;
 Game game;
 
-bool InitializeMainWindow(HINSTANCE, HWND);
+HWND InitializeMainWindow(HINSTANCE);
 bool RegisterWindowClass(HINSTANCE);
 void RunMessagePump();
 void Shutdown(HINSTANCE);

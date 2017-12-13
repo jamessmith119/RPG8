@@ -1,11 +1,18 @@
 #include "Game.h"
 
-bool Game::Initialize()
+Game::~Game()
 {
-	if (!graphicsEngine.Initialize())
+	Shutdown();
+}
+
+bool Game::Initialize(HWND windowHandle)
+{
+	if (!graphicsEngine.Initialize(windowHandle))
 	{
 		return false;
 	}
+
+	gameWindow = windowHandle;
 
 	return true;
 }

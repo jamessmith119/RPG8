@@ -2,13 +2,14 @@
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int cmdShow)
 {	
-	if (!InitializeMainWindow(instance, mainWindowHandle))
+	mainWindowHandle = InitializeMainWindow(instance);
+	if (mainWindowHandle == NULL)
 	{
 		MessageBox(NULL, L"Unable to create game window.", L"Fatal Error", MB_ICONERROR);
 		return E_FAIL;
 	}
 
-	if (!game.Initialize())
+	if (!game.Initialize(mainWindowHandle))
 	{
 		MessageBox(NULL, L"Unable to initialize game.", L"Fatal Error", MB_ICONERROR);
 		return E_FAIL;
@@ -20,7 +21,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	return 0;
 }
 
-bool InitializeMainWindow(HINSTANCE instance, HWND windowHandle)
+HWND InitializeMainWindow(HINSTANCE instance)
 {
 	//Register the main window class
 	if (!RegisterWindowClass(instance))
@@ -29,7 +30,7 @@ bool InitializeMainWindow(HINSTANCE instance, HWND windowHandle)
 	}
 
 	//Create a window
-	windowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
+	HWND windowHandle = CreateWindow(L"GameClass", L"RPG8", WS_OVERLAPPEDWINDOW, 0, 0, 400, 400, NULL, NULL, instance, NULL);
 	if (windowHandle == NULL)
 	{
 		return false;
@@ -39,7 +40,7 @@ bool InitializeMainWindow(HINSTANCE instance, HWND windowHandle)
 	ShowWindow(windowHandle, SW_SHOWNORMAL);
 	UpdateWindow(windowHandle);
 
-	return true;
+	return windowHandle;
 }
 
 bool RegisterWindowClass(HINSTANCE instance)
@@ -89,7 +90,6 @@ void RunMessagePump()
 
 void Shutdown(HINSTANCE instance)
 {
-	game.Shutdown();
 	UnregisterClass(L"GameClass", instance);
 }
 

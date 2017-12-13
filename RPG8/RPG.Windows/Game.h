@@ -6,8 +6,9 @@ class Game
 {
 	private:
 		GraphicsEngine graphicsEngine;
-
+		HWND gameWindow;
 	public:
-		bool Initialize();
+		~Game();
+		bool Initialize(HWND);
 		void Shutdown();
 };

@@ -1,8 +1,10 @@
 #include "GraphicsEngine.h"
 
-bool GraphicsEngine::Initialize()
+bool GraphicsEngine::Initialize(HWND windowHandle)
 {
 	bool initialized = false;
+
+	targetWindow = windowHandle;
 
 	direct3D = Direct3DCreate9(D3D_SDK_VERSION);
 	if (direct3D)
@@ -14,7 +16,7 @@ bool GraphicsEngine::Initialize()
 		}
 
 		D3DPRESENT_PARAMETERS displayParameters = InitializeDisplayParameters();
-		if (FAILED(direct3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, NULL, 
+		if (FAILED(direct3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, targetWindow, 
 			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &displayParameters, &device)))
 		{
 			//TODO: Exception
